@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View
-from .forms import User_reg,Login_form,Task_reg
+from .forms import User_reg,Login_form,Task_reg,User_edit
 from .models import User,Taskmodel
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -113,7 +113,15 @@ class Delete_acc(View):
 class Profile(View):
     def get(self,request):
         data=User.objects.get(username=request.user)
-        form=User_reg(instance=data)
+        form=User_edit(instance=data)
         context={'data':data,'form':form}
         return render(request,"profile.html",context)
+    
+    def post(self,request):
+        data=User.objects.get(username=request.user)
+        form=User_edit(request.POST,instance=data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Profile updated successfully")
+        return redirect('index')
     

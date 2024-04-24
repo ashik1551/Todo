@@ -26,3 +26,13 @@ class Login_form(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control form-control-lg my-3','placeholder':'Username'}))
     password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control form-control-lg my-3','placeholder':'Password'}))
 
+class User_edit(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['first_name','last_name','email']
+        widgets={
+            'first_name':forms.TextInput(attrs={'class':'form-control form-control-lg','placeholder':'First Name'}),
+            'last_name':forms.TextInput(attrs={'class':'form-control form-control-lg','placeholder':'Last Name'}),
+            'email':forms.TextInput(attrs={'class':'form-control form-control-lg','placeholder':'Email'}),
+        }
+    
