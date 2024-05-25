@@ -20,7 +20,7 @@ def login_id_check(fn):
         id=kwargs.get('key')
         data=Taskmodel.objects.get(id=id)
         if data.user!=request.user:
-            return redirect('login')
+            return redirect('index')
         else:
             return fn(request,**kwargs)
     return wrapper
